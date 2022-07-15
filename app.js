@@ -20,7 +20,9 @@ const addCol = document.querySelector('.add-col')
 const addRow = document.querySelector('.add-row')
 const tbody = document.querySelector('tbody') 
 const trHtml = document.querySelector('tr')
+let rows = document.querySelectorAll('tr')
 const trChildren = trHtml.children.length
+
 addRow.addEventListener('click',()=>{
     let row = document.createElement("tr")
     tbody.appendChild(row)
@@ -29,13 +31,26 @@ addRow.addEventListener('click',()=>{
         td.innerText = 'td'
         row.appendChild(td)
     }
+    let n = localStorage.getItem('counter');
+    if (n === null) {
+        n = rows.length;
+    } else {
+        n++;
+    }
+    console.log(n);
+    localStorage.setItem("counter", n);
 })
-let rows = document.querySelectorAll('tr')
+const clearRow = document.querySelector('.clear-row')
+clearRow.addEventListener('click',()=>localStorage.clear())
+const clearColumn = document.querySelector('.clear-columns')
+clearColumn.addEventListener('click',()=>localStorage.clear())
+
+// localStorage.setItem('cols', trChildren)
+// console.log(JSON.parse(localStorage.getItem('cols')) + 1);
 addCol.addEventListener('click',()=>{
     rows.forEach((e)=>{
         let td = document.createElement('td')
         td.innerText = 'td'
         e.appendChild(td)
-    })
-    
+    })  
 })
